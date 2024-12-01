@@ -36,4 +36,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: love-build
-          path: megasource/build
+          path: megasource/build/love/Release/*.exe, megasource/build/love/Release/*.dll

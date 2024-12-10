@@ -17,4 +17,4 @@ ldflags="\
 -X 'github.com/alist-org/alist/v3/internal/conf.Version=$version' \
 -X 'github.com/alist-org/alist/v3/internal/conf.WebVersion=$webVersion' \
 "
-go build -ldflags="$ldflags" .
+go build -trimpath -ldflags="$ldflags" .

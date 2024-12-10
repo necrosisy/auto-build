@@ -26,7 +26,7 @@ jobs:
 
         - name: Build Alist
           run: |
-            choco install busybox
+            choco install busybox -y
             npm install -g pnpm 
             git clone --recursive https://github.com/AlistGo/alist-web.git -b ${{ github.event.inputs.ui-ver }}
             cd alist-web

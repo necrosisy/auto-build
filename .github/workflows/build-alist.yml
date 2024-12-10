@@ -3,8 +3,11 @@ name: build-alist
 on:
   workflow_dispatch:
     inputs:
-        ver:
-          description: "version tu build"
+        ui-ver:
+          description: "alist-web version tu build"
+          required: true
+        core-ver:
+          description: "alist version tu build"
           required: true
 
 jobs:
@@ -20,7 +23,7 @@ jobs:
         - name: Clone Megasource Repository
           run: |
             choco install busybox
-            busybox ash script\alist.sh ${{ github.event.inputs.ver }}
+            busybox ash script\alist.sh ${{ github.event.inputs.ui-ver }} ${{ github.event.inputs.core-ver }}
         
 
         - name: Upload build artifacts

@@ -1,7 +1,7 @@
 git clone --recursive https://github.com/AlistGo/alist-web.git -b $1
 pnpm install && pnpm build
 cd ..
-git clone https://github.com/AlistGo/alist.git
+git clone https://github.com/AlistGo/alist.git -b $2
 cp -r alist-web/dist alist/public/
 cd alist
 appName="alist"

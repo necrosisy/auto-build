@@ -27,6 +27,7 @@ jobs:
         - name: Build Alist
           run: |
             choco install busybox
+            npm install -g pnpm 
             busybox ash script\alist.sh ${{ github.event.inputs.ui-ver }} ${{ github.event.inputs.core-ver }}
         
 

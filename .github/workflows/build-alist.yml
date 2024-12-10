@@ -20,7 +20,11 @@ jobs:
           shell: pwsh
       
     steps:
-        - name: Clone Megasource Repository
+
+        - name: Checkout
+          uses: actions/checkout@v4
+
+        - name: Build Alist
           run: |
             choco install busybox
             busybox ash script\alist.sh ${{ github.event.inputs.ui-ver }} ${{ github.event.inputs.core-ver }}

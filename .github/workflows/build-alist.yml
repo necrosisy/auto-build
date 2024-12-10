@@ -28,11 +28,16 @@ jobs:
           run: |
             choco install busybox
             npm install -g pnpm 
+            git clone --recursive https://github.com/AlistGo/alist-web.git -b ${{ github.event.inputs.ui-ver }}
+            cd alist-web
+            pnpm install
+            pnpm build
+            cd ..
             busybox ash script\alist.sh ${{ github.event.inputs.ui-ver }} ${{ github.event.inputs.core-ver }}
         
 
         - name: Upload build artifacts
-          uses: actions/upload-artifact@v3
+          uses: actions/upload-artifact@v4
           with: 
-            name: nekobox
+            name: alist
             path: '${{ github.workspace }}/alist/alist.exe'

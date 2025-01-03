@@ -43,13 +43,13 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3   
     
-    - name: Install Qt 6.7.3
+    - name: Install Qt 6.8.1
       uses: jurplel/install-qt-action@v4
       with:
-        version: '6.7.3'
+        version: '6.8.1'
         host: 'windows'
         target: 'desktop'
-        arch: 'win64_msvc2019_64'
+        arch: 'win64_msvc2022_64'
         set-env: 'true'
         add-tools-to-path: 'true'
  

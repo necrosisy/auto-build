@@ -2,8 +2,13 @@ name: build-neko
 
 on:
   workflow_dispatch:
-
-
+    inputs:
+      ver:
+        description: "version to be compiled"
+        required: true
+      qt-ver:
+        description: "qt version"
+        required: true
 
 jobs:
 
@@ -21,6 +26,7 @@ jobs:
         $env:MSYSTEM = 'CLANG64'
         $env:MSYS2_PATH_TYPE = 'inherit'
         git clone https://github.com/MatsuriDayo/nekoray.git --recursive
+        git checkout ${{ github.event.inputs.ver }}
         cd nekoray
         C:\msys64\usr\bin\bash.exe -lc "./libs/get_source.sh"
         C:\msys64\usr\bin\bash.exe -lc "GOOS=windows GOARCH=amd64 bash libs/build_go.sh"
@@ -43,10 +49,10 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3   
     
-    - name: Install Qt 6.8.1
+    - name: Install Qt
       uses: jurplel/install-qt-action@v4
       with:
-        version: '6.8.1'
+        version: ${{ github.event.inputs.qt-ver }}
         host: 'windows'
         target: 'desktop'
         arch: 'win64_msvc2022_64'

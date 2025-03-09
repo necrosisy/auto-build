@@ -4,10 +4,10 @@ on:
   workflow_dispatch:
     inputs:
         ui-ver:
-          description: "alist-web version tu build"
+          description: "alist-web version to build"
           required: true
         core-ver:
-          description: "alist version tu build"
+          description: "alist version to build"
           required: true
 
 jobs:

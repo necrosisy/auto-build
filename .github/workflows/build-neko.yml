@@ -100,7 +100,7 @@ jobs:
           ls nekobox
           choco install -y wget | Out-Null
           cd nekobox
-          rm d3dcompiler* dxcompiler.dll dxil.dll opengl32sw.dll vc_redist.x64.exe
+          rm d3dcompiler*, dxcompiler.dll, dxil.dll, opengl32sw.dll, vc_redist.x64.exe
           rm updater.exe
           wget https://github.com/SagerNet/sing-geoip/releases/latest/download/geoip.db
           wget https://github.com/SagerNet/sing-geosite/releases/latest/download/geosite.db

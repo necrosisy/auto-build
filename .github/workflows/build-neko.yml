@@ -62,7 +62,7 @@ jobs:
     - name: build nekoray C++
       run: |
         call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x64
-        choco install busybox -y
+        choco install busybox -y | Out-Null
         git clone https://github.com/MatsuriDayo/nekoray.git --recursive
         cd nekoray
         busybox sh ./libs/build_deps_all.sh
@@ -89,18 +89,19 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: nekobox-ui
+          path: ${{ github.workspace }}/nekobox
       - name: Download Core
         uses: actions/download-artifact@v4
         with:
           name: nekobox-core
+          path: ${{ github.workspace }}/nekobox
       - name: Assemble Dist
         run: |
-          choco install -y wget
           ls
-          mv nekobox-ui nekobox
+          choco install -y wget | Out-Null
           cd nekobox
           rm d3dcompiler* dxcompiler.dll dxil.dll opengl32sw.dll vc_redist.x64.exe
-          cp ..\nekobox-core\nekobox_core.exe .
+          rm updater.exe
           wget https://github.com/SagerNet/sing-geoip/releases/latest/download/geoip.db
           wget https://github.com/SagerNet/sing-geosite/releases/latest/download/geosite.db
       - name: Upload Dist

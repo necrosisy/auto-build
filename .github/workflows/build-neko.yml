@@ -96,6 +96,7 @@ jobs:
       - name: Assemble Dist
         run: |
           choco install -y wget
+          ls
           mv nekobox-ui nekobox
           cd nekobox
           rm d3dcompiler* dxcompiler.dll dxil.dll opengl32sw.dll vc_redist.x64.exe

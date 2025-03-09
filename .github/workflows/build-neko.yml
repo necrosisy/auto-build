@@ -77,6 +77,34 @@ jobs:
     - name: Upload build artifacts
       uses: actions/upload-artifact@v4
       with: 
-        name: nekobox
+        name: nekobox-ui
         path: '${{ github.workspace }}/nekoray/build/deploy/'
+
+  assemble:
+    name: "Assemble the components"
+    runs-on: windows-latest
+    needs: [build-core, build-ui]
+    steps:
+      - name: Download UI
+        uses: actions/download-artifact@v4
+        with:
+          name: nekobox-ui
+      - name: Download Core
+        uses: actions/download-artifact@v4
+        with:
+          name: nekobox-core
+      - name: Assemble Dist
+        run: |
+          choco install -y wget
+          mv nekobox-ui nekobox
+          cd nekobox
+          rm d3dcompiler* dxcompiler.dll dxil.dll opengl32sw.dll vc_redist.x64.exe
+          cp ..\nekobox-core\nekobox_core.exe .
+          wget https://github.com/SagerNet/sing-geoip/releases/latest/download/geoip.db
+          wget https://github.com/SagerNet/sing-geosite/releases/latest/download/geosite.db
+      - name: Upload Dist
+        uses: actions/upload-artifact@v4
+        with:
+          name: nekobox
+          path: '${{ github.workspace }}/nekobox'
 

@@ -35,6 +35,7 @@ jobs:
     - name: "Build Aseprite (Release + Full Optimization)"
       run: |
         call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\Tools\VsDevCmd.bat" -arch=x64
+        cd aseprite
         mkdir build
         cd build
         cmake -G Ninja ^

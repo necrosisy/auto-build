@@ -49,9 +49,24 @@ jobs:
           -DCMAKE_EXE_LINKER_FLAGS_RELEASE="/LTCG /OPT:REF /OPT:ICF /INCREMENTAL:NO" ^
           ..
         cmake --build . --config Release
+    
+    - name: "Binary file post-processing"
+      shell: pwsh
+      run: |
+        mkdir radare2
+        curl -LJO https://github.com/radareorg/radare2/releases/download/5.9.8/radare2-5.9.8-w64.zip 
+        7z x radare2-5.9.8-w64.zip 
+        mv .\radare2-5.9.8-w64\* .
+        Add-Content $env:GITHUB_PATH "${{ github.workspace }}\radare2\bin\"
+        cd ${{ github.workspace }}
+        mkdir release
+        cp ${{ github.workspace }}\aseprite\build\bin\aseprite.exe
+        cp -r ${{ github.workspace }}\aseprite\build\bin\data\
+        r2 -e bin.cache=true -q -w -c '/x 6c 69 62 63 72 79 70 74 6f 2d 31 5f 31 2d 78 36 34 2e 64 6c 6c; wx 6c 69 62 63 72 79 70 74 6f 2e 64 6c 6c 00 00 00 00 00 00 00 00 @ hit0_0' ${{ github.workspace }}\release\aseprite.exe
+
 
     - name: "Upload Build Artifacts"
       uses: actions/upload-artifact@v4
       with:
         name: aseprite-release
-        path: ${{ github.workspace }}\aseprite\build\bin\*
+        path: ${{ github.workspace }}\release
